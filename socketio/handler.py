@@ -1,4 +1,5 @@
 import sys
+import random
 import re
 import gevent
 import urlparse
@@ -56,8 +57,8 @@ class SocketIOHandler(WSGIHandler):
         if tokens["resource"] != self.server.resource:
             self.log_error("socket.io URL mismatch")
         else:
-            socket = self.server.get_socket()
-            data = "%s:%s:%s:%s" % (socket.sessid,
+            sess_id = str(random.random())[2:]
+            data = "%s:%s:%s:%s" % (sess_id,
                                     self.config['heartbeat_timeout'] or '',
                                     self.config['close_timeout'] or '',
                                     ",".join(self.transports))
