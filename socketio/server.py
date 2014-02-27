@@ -128,8 +128,6 @@ class SocketIOServer(WSGIServer):
 
         socket = self.sockets.get(sessid)
 
-        if sessid and not socket:
-            return None  # you ask for a session that doesn't exist!
         if socket is None:
             socket = Socket(self, self.config)
             self.sockets[socket.sessid] = socket
